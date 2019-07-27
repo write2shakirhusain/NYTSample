@@ -26,9 +26,14 @@ class SHArticlesVC: UIViewController {
     func fetchArticles() -> Void {
         apiManager.fetchArticlesList { [weak self](inArticles, Error)  in
             DispatchQueue.main.async {
-                if let articles = inArticles {
-                    self?.arrArticles.append(contentsOf: articles)
-                    self?.tblView.reloadData()
+                if Error ==  nil{
+                    if let articles = inArticles {
+                        self?.arrArticles.append(contentsOf: articles)
+                        self?.tblView.reloadData()
+                    }
+
+                }else{
+                    print("*** Error \(String(describing: Error)) ***")
                 }
             }
         }
