@@ -46,11 +46,14 @@ class SHArticleDetailsVC: UIViewController {
     
     func updateUI() -> Void {
         
-        if let url = URL(string: "") {
+        
+        if let url = articleVM?.getUrl(inMediaUrlType: .eMediaUrlBig) {
+           
             imgArticle.sd_setImage(with: url) { (image, error, cache, url) in
                 
             }
         }
+        
         lblTitle.text = articleVM?.dataModel.title
         lblByline.text = articleVM?.dataModel.byline
         txtVDescription.text = articleVM?.dataModel.abstract
