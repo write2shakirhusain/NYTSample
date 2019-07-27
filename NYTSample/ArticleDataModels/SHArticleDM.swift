@@ -35,7 +35,7 @@ struct SHArticleMedia:Codable {
         case type
         case subtype
         case caption
-        case mediaMetadata = "media-metadata"
+        case mediaMetadata = "media-metadata"//Key Renamed here.
 
     }
 }

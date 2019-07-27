@@ -37,6 +37,7 @@ class SHArticleDetailsVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.title = "Article Detail"
     }
 
     override func viewWillAppear(_ animated: Bool) {

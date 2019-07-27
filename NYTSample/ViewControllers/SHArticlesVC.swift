@@ -9,7 +9,6 @@
 import UIKit
 
 
-
 class SHArticlesVC: UIViewController {
 
     var arrArticles = [SHArticleVM]()
@@ -21,6 +20,7 @@ class SHArticlesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchArticles()
+        self.title = "Articles"
     }
     
     func fetchArticles() -> Void {
@@ -33,7 +33,6 @@ class SHArticlesVC: UIViewController {
             }
         }
     }
-    
 }
 
 //MARK:  TABLEVIEW DATASOURCE & DELEGATES
