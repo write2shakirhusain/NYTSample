@@ -19,6 +19,9 @@ enum enMediaUrlType {
 class SHArticleVM: NSObject {
     
     var  dataModel : SHArticleDM
+    var  smallImage : UIImage?
+    var  bigImage : UIImage?
+
     unowned var view : SHArticleCell?
    
     init(inDataModel : SHArticleDM) {
@@ -29,6 +32,54 @@ class SHArticleVM: NSObject {
         
     }
     
+    func starDownloading() -> Void {
+        downloadSmallImage()
+        downloadBigImage();
+    }
+
+    //MARK: Downloading small Image
+    func downloadSmallImage() -> Void {
+        
+        var imageData:Data?
+
+        DispatchQueue.global().async {
+           
+            if let url = self.getUrl(inMediaUrlType: .eMediaUrlSmall) {
+                
+                try?imageData = Data(contentsOf: url)
+                
+                DispatchQueue.main.async {
+                    //ui updation here
+                    if let data = imageData{
+                        self.smallImage = UIImage(data: data)
+                        self.updateView()
+                    }
+                }
+            }
+        }
+    }
+    //MARK: Downloading big Image
+    func downloadBigImage() -> Void {
+        
+        var imageData:Data?
+        
+        DispatchQueue.global().async {
+            
+            if let url = self.getUrl(inMediaUrlType: .eMediaUrlBig) {
+                
+                try?imageData = Data(contentsOf: url)
+                
+                DispatchQueue.main.async {
+                    //ui updation here
+                    if let data = imageData{
+                        self.bigImage = UIImage(data: data)
+                        self.updateView()
+                    }
+                }
+                
+            }
+        }
+    }
 }
 
 //MARK:Helper UI Methods in Extension
@@ -39,11 +90,7 @@ extension SHArticleVM {
         view?.lblTitle.text = dataModel.title
         view?.lblByline.text = dataModel.byline
         view?.lblPblshDate.text = dataModel.published_date
-       
-        if let url = getUrl(inMediaUrlType: .eMediaUrlSmall) {
-            view?.imgThumbnail.sd_setImage(with: url) { (image, error, cache, url) in
-            }
-        }
+       view?.imgThumbnail.image = self.smallImage
     }
 
     public func configure(_ inView: SHArticleCell) {

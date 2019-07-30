@@ -59,6 +59,8 @@ class SHConstants {
                         
                         let listOfViewModel = userDataObject.results.map({ (inUserModel : SHArticleDM) -> SHArticleVM in
                             let viewModel =  SHArticleVM(inDataModel: inUserModel)
+                            viewModel.starDownloading()
+
                             return viewModel
                         });
                         self?.callBack?(listOfViewModel, nil)
